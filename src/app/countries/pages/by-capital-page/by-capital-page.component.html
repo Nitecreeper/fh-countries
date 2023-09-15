@@ -20,11 +20,7 @@
 
         <hr>
 
-        <ul>
-            <li *ngFor="let country of countries">
-                {{country.capital}} - {{country.population}}
-            </li>
-        </ul>
+        <countries-country-table [countries]="countries"></countries-country-table>
 
     </div>
 
