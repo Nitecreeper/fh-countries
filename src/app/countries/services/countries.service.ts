@@ -15,7 +15,26 @@ export class CountriesService {
   ) { }
 
   public searchCapital (term: string): Observable<Country[]>{
-    const url = `${this.apiUrl}/capital/${term}`
+    const url = `${this.apiUrl}/capital/${term}`;
+    return this.httpClient.get<Country[]>(url)
+              .pipe(
+                catchError( () => of([]) )
+              );
+  }
+
+  public searchCountry (term: string): Observable<Country[]>{
+    const url =  `${this.apiUrl}/name/${term}`;
+
+    return this.httpClient.get<Country[]>(url)
+              .pipe(
+                catchError( () => of([]) )
+              );
+    
+  }
+  
+  public searchRegion (term: string): Observable<Country[]>{
+    const url =  `${this.apiUrl}/region/${term}`;
+
     return this.httpClient.get<Country[]>(url)
               .pipe(
                 catchError( () => of([]) )
