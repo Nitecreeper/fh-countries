@@ -18,15 +18,18 @@ export class CountryPageComponent implements OnInit{
     this.activatedRoute.params.subscribe(
       ({id}) => {
 
-        this.countriesService.searchCountryByAlphaCode(id).subscribe(
-          ( country ) => {
-            console.log(country);
-            
-          }
-        )
+        this.searchCountry(id)
         
       }
     );
+  }
+
+  private searchCountry( code: string): void{
+    this.countriesService.searchCountryByAlphaCode(code).subscribe(
+      ( country ) => {
+        console.log(country);
+      }
+    )
   }
 
 }
