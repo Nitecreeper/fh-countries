@@ -10,9 +10,18 @@ export class CountriesService {
 
   private apiUrl: string = 'https://restcountries.com/v3.1';
 
+  public cacheStore = {
+    byCapital:    {term: '', countries: []},
+    byCountries:  {term: '', countries: []},
+    byRegion:     {term: '', countries: []},
+  }
+
   constructor(
     private httpClient: HttpClient
-  ) { }
+  ) {
+    console.log('CountriesService: INIT');
+    
+   }
 
   private getCountriesRequest(url: string): Observable<Country[]>{
     return this.httpClient.get<Country[]>(url)
