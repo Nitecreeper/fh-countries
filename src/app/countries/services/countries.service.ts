@@ -22,8 +22,19 @@ export class CountriesService {
     private httpClient: HttpClient
   ) {
     console.log('CountriesService: INIT');
-    
    }
+
+  private saveToLocalStorage(){
+    localStorage.setItem('cacheStore', JSON.stringify(this.cacheStore));
+  }
+
+  private loadFromLocalStorage(){
+    if(!localStorage.getItem('cacheStore')){
+      return;
+    }
+
+    this.cacheStore = JSON.parse(localStorage.getItem('cacheStore')!);
+  }
 
   private getCountriesRequest(url: string): Observable<Country[]>{
     return this.httpClient.get<Country[]>(url)
