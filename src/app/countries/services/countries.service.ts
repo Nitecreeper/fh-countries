@@ -22,6 +22,7 @@ export class CountriesService {
     private httpClient: HttpClient
   ) {
     console.log('CountriesService: INIT');
+    this.loadFromLocalStorage();
    }
 
   private saveToLocalStorage(){
@@ -57,7 +58,8 @@ export class CountriesService {
     const url = `${this.apiUrl}/capital/${term}`;
     return this.getCountriesRequest(url)
                 .pipe(
-                  tap(countries=>this.cacheStore.byCapital = {term, countries})
+                  tap(countries=>this.cacheStore.byCapital = {term, countries}),
+                  tap( () => { this.saveToLocalStorage() }),
                 );
   }
 
@@ -66,7 +68,8 @@ export class CountriesService {
 
     return this.getCountriesRequest(url)
                 .pipe(
-                  tap(countries => this.cacheStore.byCountries = {term, countries})
+                  tap(countries => this.cacheStore.byCountries = {term, countries}),
+                  tap( () => { this.saveToLocalStorage() }),
                 );
   }
   
@@ -74,7 +77,8 @@ export class CountriesService {
     const url =  `${this.apiUrl}/region/${region}`;
     return this.getCountriesRequest(url)
                 .pipe(
-                  tap(countries => this.cacheStore.byRegion = {region, countries})
+                  tap(countries => this.cacheStore.byRegion = {region, countries}),
+                  tap( () => { this.saveToLocalStorage() }),
                 );
   }
 
